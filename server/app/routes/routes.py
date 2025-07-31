@@ -1,5 +1,7 @@
 from flask import current_app as app
+from app.utils.response import Response
 
-@app.route('/')
+
+@app.route('/api/v1/')
 def index():
-    return 'Hello, World!'
+    return Response.success_response("Defi-Lyrics API v1")

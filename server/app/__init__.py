@@ -5,5 +5,9 @@ def create_app():
 
     with app.app_context():
         from .routes import routes
+        from .config import Config
+
+        Config()
+        app.logger.info("App initialized successfully")
 
     return app
