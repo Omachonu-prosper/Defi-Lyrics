@@ -57,7 +57,7 @@ function Home() {
                 value={searchTerm}
                 onChange={handleChange}
                 className={`w-full border-2 ${error ? 'border-red-500' : 'border-gray-300'} bg-white text-gray-900 rounded-full py-3 pl-5 pr-12 text-lg focus:outline-none focus:border-purple-500 transition-colors`}
-                placeholder="Enter a song title..."
+                placeholder="Search for an artist or their music..."
               />
               <motion.button
                 whileHover={{ scale: 1.1 }}

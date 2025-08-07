@@ -5,16 +5,18 @@ from app.utils.genius_service import search_genius
 
 @app.route('/api/v1')
 def index():
-    return Response.success_response("Defi-Lyrics API v1")
+    return Response.success_response("Defi-Lyrics Lyrics & Meaning API")
 
 
 @app.route('/api/v1/search', methods=['GET'])
 def search():
     query = request.args.get('query')
+    page = int(request.args.get('page', 1))
+    page_size = int(request.args.get('page_size', 10))
     if not query:
         return jsonify({'error': 'Missing search query'}), 400
 
-    results = search_genius(query)
+    results = search_genius(query, page, page_size)
     # Return only useful fields for the frontend
     formatted = [
         {
