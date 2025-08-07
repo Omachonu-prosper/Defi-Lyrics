@@ -132,7 +132,11 @@ function Results() {
                     className="bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden flex items-center p-4 cursor-pointer hover:shadow-md hover:border-purple-300 transition-all"
                     onClick={() => handleCardClick(song.id)}
                   >
-                    <div className="w-24 h-24 bg-gray-200 rounded-md flex-shrink-0"></div>
+                    <img
+                      src={song.thumbnail}
+                      alt={song.title}
+                      className="w-24 h-24 object-cover rounded-md flex-shrink-0 bg-gray-200"
+                    />
                     <div className="ml-4">
                       <h2 className="text-xl font-bold text-gray-800">
                         {song.title}
