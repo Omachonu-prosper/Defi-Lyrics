@@ -1,13 +1,14 @@
 from flask import Flask
+from app.config import Config
+
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_object(Config)
 
     with app.app_context():
-        from .routes import routes
-        from .config import Config
+        from app.routes import routes
 
-        Config()
         app.logger.info("App initialized successfully")
 
     return app
