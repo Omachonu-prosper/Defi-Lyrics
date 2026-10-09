@@ -1,40 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Icon } from '@iconify/react';
-import LoadingBubbles from './LoadingBubbles';
 
-const LyricLine = ({ line, index }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+const LyricLine = ({ line, index, isOpen, onToggle }) => {
+  if (line.section) {
+    return (
+      <p className="text-sm font-semibold uppercase tracking-wide text-gray-400 pt-4">
+        {line.text}
+      </p>
+    );
+  }
 
-  const handleClick = () => {
-    if (isOpen) {
-      setIsOpen(false);
-    } else {
-      setIsLoading(true);
-      setTimeout(() => {
-        setIsOpen(true);
-        setIsLoading(false);
-      }, 800); // Simulate a delay
-    }
-  };
+  const showTranslation =
+    line.translation && line.translation.trim().toLowerCase() !== line.text.trim().toLowerCase();
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: 0.1 * index }}
+      transition={{ duration: 0.3, delay: Math.min(0.03 * index, 1) }}
       className="mb-2"
     >
       <motion.div
         whileHover={{ scale: 1.02 }}
-        onClick={handleClick}
+        onClick={onToggle}
         className="cursor-pointer flex justify-between items-center"
       >
         <p className="text-lg">{line.text}</p>
       </motion.div>
       <AnimatePresence>
-        {isLoading && <LoadingBubbles />}
         {isOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0, marginTop: 0 }}
@@ -46,10 +39,12 @@ const LyricLine = ({ line, index }) => {
               <h3 className="font-semibold text-md text-purple-700">Meaning</h3>
               <p className="text-gray-600">{line.meaning}</p>
             </div>
-            <div>
-              <h3 className="font-semibold text-md text-purple-700">Translation</h3>
-              <p className="text-gray-600">{line.translation}</p>
-            </div>
+            {showTranslation && (
+              <div>
+                <h3 className="font-semibold text-md text-purple-700">Translation</h3>
+                <p className="text-gray-600">{line.translation}</p>
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

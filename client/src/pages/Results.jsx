@@ -39,7 +39,7 @@ function Results() {
         );
         setHasMore(newResults.length === PAGE_SIZE);
       })
-      .catch(() => setError("Failed to fetch results"))
+      .catch((err) => setError(err.message))
       .finally(() => setIsLoading(false));
   }, [searchTerm, page]);
 
@@ -119,7 +119,10 @@ function Results() {
           </motion.div>
 
           {error ? (
-            <div>{error}</div>
+            <div className="text-center py-8 text-gray-600">
+              <Icon icon="mdi:alert-circle-outline" className="h-10 w-10 mx-auto mb-3 text-red-400" />
+              <p>{error}</p>
+            </div>
           ) : (
             <div className="space-y-4">
               {results.length > 0 ? (
